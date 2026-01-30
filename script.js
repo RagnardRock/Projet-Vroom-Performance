@@ -163,12 +163,24 @@ applyStagger();
 // Gestion des articles : pagination + modal
 let articlesModal = null;
 let setupArticlesTimeout = null;
+let isReordering = false; // Flag pour éviter la boucle de réorganisation
 
 function setupArticles() {
     const container = document.querySelector('[data-bifrost-collection="articles"]');
     if (!container) return;
 
+    // Récupérer les articles
     const articles = Array.from(container.querySelectorAll('.article-card'));
+
+    // Inverser l'ordre seulement si pas déjà en cours de réorganisation
+    if (!isReordering && articles.length > 1) {
+        isReordering = true;
+        articles.reverse();
+        // Réorganiser le DOM dans l'ordre inversé
+        articles.forEach(article => container.appendChild(article));
+        // Reset le flag après un tick pour permettre les futurs ajouts
+        setTimeout(() => { isReordering = false; }, 200);
+    }
 
     // Nettoyer l'ancien bouton si présent
     const oldBtn = container.parentElement.querySelector('.load-more-btn');
@@ -248,8 +260,6 @@ function setupArticles() {
 
         function closeModal() {
             articlesModal.classList.remove('open');
-            document.body.style.overflow = '';
-            document.body.style.paddingRight = '';
         }
 
         closeBtn.addEventListener('click', closeModal);
@@ -274,14 +284,9 @@ function setupArticles() {
             const titre = article.querySelector('[data-field="titre"]')?.textContent || '';
             const contenu = article.dataset.fullContent || '';
 
-            // Calculer la largeur de la scrollbar pour éviter le décalage
-            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
             modalTitle.textContent = titre;
             modalBody.innerHTML = contenu;
             articlesModal.classList.add('open');
-            document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = scrollbarWidth + 'px';
         });
     });
 
