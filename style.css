@@ -16,10 +16,9 @@ main {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
 }
 
-html, body {
+html {
     overflow-x: hidden;
     background-color: #880011; /* Fallback couleur Milano */
 }
@@ -475,8 +474,6 @@ footer a.rs::before {
 
 section {
     padding: 24px 0;
-    max-width: 100%;
-    overflow-x: hidden;
 }
 
 .section {
@@ -597,11 +594,6 @@ section {
         gap: 1.5rem;
         width: 100%;
         max-width: 100vw;
-    }
-
-    main > section {
-        width: 100%;
-        max-width: 100%;
     }
 
     /*HEADER*/
@@ -1100,10 +1092,8 @@ body.menu-open .nav-fab span:nth-child(3) {
   overflow-wrap: break-word;
 }
 
-/* Contraintes Bifrost pour éviter le débordement */
-[data-bifrost],
-[data-bifrost-collection] {
-  max-width: 100%;
+/* Contraintes Bifrost pour éviter le débordement de texte */
+[data-bifrost] {
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
