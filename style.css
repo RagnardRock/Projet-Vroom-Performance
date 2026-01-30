@@ -1040,6 +1040,8 @@ body.menu-open .nav-fab span:nth-child(3) {
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s, visibility 0.3s;
+  overflow: auto;
+  max-width: none;
 }
 
 .article-modal.open {
@@ -1051,9 +1053,10 @@ body.menu-open .nav-fab span:nth-child(3) {
   background: #1a1a1a;
   border-radius: 16px;
   max-width: 700px;
-  width: 100%;
+  width: calc(100% - 40px);
   max-height: 80vh;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 32px;
   position: relative;
   transform: translateY(20px);
@@ -1092,6 +1095,9 @@ body.menu-open .nav-fab span:nth-child(3) {
 .article-modal-body {
   color: rgba(255, 255, 255, 0.85);
   line-height: 1.7;
+  width: 100%;
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 /* Contraintes Bifrost pour éviter le débordement */
